@@ -1,0 +1,15 @@
+name: On PR edit
+
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - edited
+      - synchronize
+
+jobs:
+  validate-pr-title:
+    name: Validate PR title
+    uses: gueriboutmathieu/python_utils/.github/workflows/callable__validate_pr_title.yaml@1.0.16
+    secrets: inherit
