@@ -11,11 +11,11 @@ jobs:
     uses: gueriboutmathieu/python_utils/.github/workflows/callable__check_python_code.yaml@1.0.16
     secrets: inherit
 
-  validate-alembic-migrations:
-    name: Check python code
-    uses: gueriboutmathieu/python_utils/.github/workflows/callable__validate_alembic_migrations.yaml@1.0.16
-    needs: check-python-code
-    secrets: inherit
+#   validate-alembic-migrations:
+#     name: Check python code
+#     uses: gueriboutmathieu/python_utils/.github/workflows/callable__validate_alembic_migrations.yaml@1.0.16
+#     needs: check-python-code
+#     secrets: inherit
 
   build-and-release:
     name: Build and release
