@@ -185,7 +185,7 @@ class SearchService:
                 case _:
                     pass
         return search_results
-    
+
     def _get_video_metadata(self, video_id: str) -> tuple[int, int]:
         params = {
             "id": video_id,
@@ -197,7 +197,7 @@ class SearchService:
         duration = parse_iso_duration(video_metadata_response["contentDetails"]["duration"])
         view_count = int(video_metadata_response["statistics"]["viewCount"])
         return duration, view_count
-    
+
     def _get_playlist_video_count(self, playlist_id: str) -> int:
         params = {
             "id": playlist_id,
@@ -207,7 +207,7 @@ class SearchService:
         response = requests.get(f"{self.base_url}/playlists", params=params).json()["items"][0]
         playlist_metadata_response = cast(PlaylistMetadataResponse, response)
         return playlist_metadata_response["contentDetails"]["itemCount"]
-    
+
     def _get_channel_metadata(self, channel_id: str) -> tuple[int, int]:
         params = {
             "id": channel_id,
