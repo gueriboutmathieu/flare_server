@@ -32,6 +32,7 @@ dependencies = [
     "uuid6==2024.7.*",
     "uvicorn==0.34.*",
     "python-multipart==0.0.20",
+    "isodate>=0.7.2",
 ]
 
 [project.urls]
@@ -57,6 +58,7 @@ packages = [
     "flare.domain.exceptions",
     "flare.routes",
     "flare.repositories",
+    "flare.services",
 ]
 
 [tool.coverage.run]

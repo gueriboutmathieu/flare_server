@@ -1,8 +1,10 @@
 import uvicorn
+from flare.config.google_config import GoogleConfig
 
 from flare.config.postgresql_config import PostgresqlConfig
 from flare.domain.domain import Domain
 from flare.routes.fastapi_app import FastapiApp
+from flare.services.search_service import SearchService
 from python_utils.loggers import get_logger
 from python_utils.sqlalchemy_postgresql_engine_wrapper import SqlAlchemyPostgresqlEngineWrapper
 
@@ -13,6 +15,11 @@ logger = get_logger(__name__)
 
 # Configs
 postgresql_config = PostgresqlConfig()
+google_config = GoogleConfig()
+
+
+# Services
+search_service = SearchService(google_config.api_key)
 
 
 # SQLAlchemyEngineWrapper
@@ -30,6 +37,7 @@ sqlalchemy_session = sqlalchemy_postgresql_engine_wrapper.create_session()
 class CommandContext:
     def __init__(self):
         self.sqlalchemy_session = sqlalchemy_session
+        self.search_service = search_service
 
     def commit(self):
         self.sqlalchemy_session.commit()
