@@ -20,7 +20,7 @@ jobs:
   build-and-release:
     name: Build and release
     uses: gueriboutmathieu/python_utils/.github/workflows/callable__build_and_release.yaml@1.0.16
-    needs: validate-alembic-migrations
+    needs: check-python-code
     secrets: inherit
     with:
       package-name: "flare"
