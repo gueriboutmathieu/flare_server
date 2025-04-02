@@ -99,7 +99,7 @@ class SearchService:
             "q": query,
             "type": search_type,
             "part": "snippet",
-            "maxResults": 50,
+            "maxResults": 1,
             "key": self.api_key
         }
         response = requests.get(f"{self.base_url}/search", params=params).json()
@@ -206,7 +206,8 @@ class SearchService:
         }
         response = requests.get(f"{self.base_url}/playlists", params=params).json()["items"][0]
         playlist_metadata_response = cast(PlaylistMetadataResponse, response)
-        return playlist_metadata_response["contentDetails"]["itemCount"]
+        video_count = playlist_metadata_response["contentDetails"]["itemCount"]
+        return video_count
 
     def _get_channel_metadata(self, channel_id: str) -> tuple[int, int]:
         params = {

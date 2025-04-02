@@ -1,5 +1,4 @@
 from datetime import datetime
-from pydantic import BaseModel
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from python_utils.entity import Entity
@@ -26,14 +25,3 @@ class Channel(Entity):
         init=False,
         default_factory=list,
     )
-
-
-class ChannelDto(BaseModel):
-    id: str
-    title: str
-    description: str
-    url: str
-    thumbnail_url: str
-    video_count: int
-    subscriber_count: int
-    published_at: datetime

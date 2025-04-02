@@ -4,5 +4,4 @@ from flare.domain.entities.search_type import SearchType
 
 
 def search_command(command_context: CommandContext, query: str, search_type: SearchType) -> list[SearchResult]:
-    results = command_context.search_service.search(query, search_type)
-    return results
+    return command_context.search_service.search(query, search_type)

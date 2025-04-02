@@ -1,5 +1,5 @@
 import uvicorn
-from flare.config.google_config import GoogleConfig
+from flare.config.youtube_config import YoutubeConfig
 
 from flare.config.postgresql_config import PostgresqlConfig
 from flare.domain.domain import Domain
@@ -15,11 +15,11 @@ logger = get_logger(__name__)
 
 # Configs
 postgresql_config = PostgresqlConfig()
-google_config = GoogleConfig()
+youtube_config = YoutubeConfig()
 
 
 # Services
-search_service = SearchService(google_config.api_key)
+search_service = SearchService(youtube_config.api_key)
 
 
 # SQLAlchemyEngineWrapper
