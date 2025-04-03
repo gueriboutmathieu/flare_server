@@ -59,7 +59,7 @@ class CommandContext:
 
 
 bound_domain = Domain(CommandContext)
-fastapi_app = FastapiApp(bound_domain, auth_service)
+fastapi_app = FastapiApp(bound_domain)
 
 
 def run_server():

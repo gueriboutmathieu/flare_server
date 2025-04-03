@@ -10,12 +10,16 @@ from flare.routes.dtos.channel_dto import ChannelDto
 from flare.routes.dtos.playlist_dto import PlaylistDto
 from flare.routes.dtos.search_result_dto import SearchResultDto
 from flare.routes.dtos.video_dto import VideoDto
-from flare.services.auth_service import AuthService
+from flare.routes.utils.validate_user_wrapper import validate_user_wrapper
 
 
-def load_routes(fastapi_app: FastAPI, domain: Domain, auth_service: AuthService):
+def load_routes(fastapi_app: FastAPI, domain: Domain):
     @fastapi_app.post("/search")
-    async def search(query: str, search_type: SearchType = SearchType.ALL, user: User = Depends(auth_service.get_current_user)) -> list[SearchResultDto]:  # pyright: ignore[reportUnusedFunction]
+    async def search(  # pyright: ignore[reportUnusedFunction]
+        query: str,
+        search_type: SearchType = SearchType.ALL,
+        _: User = Depends(validate_user_wrapper(domain))
+    ) -> list[SearchResultDto]:
         search_results = domain.search(query, search_type)
 
         search_result_dtos: list[SearchResultDto] = []

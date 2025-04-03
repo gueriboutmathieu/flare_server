@@ -1,10 +1,8 @@
-from fastapi import Depends, HTTPException
+from fastapi import HTTPException
 from jwt import decode  # pyright: ignore
-from typing import Annotated
 from uuid import UUID
 
-from flare.domain.entities.user_entity import User
-from python_utils.auth import Auth, AuthException, oauth2_scheme
+from python_utils.auth import Auth, AuthException
 
 
 class AuthService(Auth):
@@ -12,9 +10,7 @@ class AuthService(Auth):
         token_data_keys = ["user_id", "username", "password"]
         super().__init__(secret_key, public_key, token_data_keys)
 
-    async def validate_user(
-        self, token: Annotated[str, Depends(oauth2_scheme)]
-    ) -> User:
+    def validate_user(self, token: str) -> UUID:
         try:
             self.validate_token(token)
         except AuthException:
@@ -27,7 +23,5 @@ class AuthService(Auth):
                 status_code=401, detail="Missing required data in token"
             )
 
-        user_id = payload.get("user_id")
-        username = payload.get("username")
-        password = payload.get("password")
-        return User(UUID(user_id), username, password)
+        user_id = UUID(payload.get("user_id"))
+        return user_id
