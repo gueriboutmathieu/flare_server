@@ -1,20 +1,34 @@
 import pytest
 from datetime import datetime
+from logging import Logger
+from sqlalchemy.orm import Session
 
 from flare.domain.command_context import CommandContext
 from flare.domain.entities.channel_entity import Channel
 from flare.domain.entities.playlist_entity import Playlist
 from flare.domain.entities.video_entity import Video
+from flare.repositories.user_repository import UserRepository
+from flare.services.auth_service import AuthService
 from flare.services.search_service import SearchService
 
 
 class MockedCommandContext(CommandContext):
     def __init__(self) -> None:
+        self._auth_service = AuthService("", "")
         self._search_service = SearchService("")
+        self._user_repository = UserRepository(Session(), Logger(__name__))
+
+    @property
+    def auth_service(self):
+        return self._auth_service
 
     @property
     def search_service(self):
         return self._search_service
+
+    @property
+    def user_repository(self):
+        return self._user_repository
 
     def commit(self) -> None:
         pass

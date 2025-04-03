@@ -1,0 +1,10 @@
+services:
+  postgres-flare:
+    image: postgres:17  # PostgreSQL with pgvector extension
+    container_name: postgres-flare
+    environment:
+      POSTGRES_USER: ${SQL_USER:-user}
+      POSTGRES_PASSWORD: ${SQL_PASSWORD:-password}
+      POSTGRES_DB: ${SQL_DATABASE:-flare}
+    ports:
+      - ${SQL_PORT:-55432}:5432

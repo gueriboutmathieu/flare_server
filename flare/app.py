@@ -1,9 +1,12 @@
 import uvicorn
-from flare.config.youtube_config import YoutubeConfig
 
+from flare.config.auth_config import AuthConfig
 from flare.config.postgresql_config import PostgresqlConfig
+from flare.config.youtube_config import YoutubeConfig
 from flare.domain.domain import Domain
+from flare.repositories.user_repository import UserRepository
 from flare.routes.fastapi_app import FastapiApp
+from flare.services.auth_service import AuthService
 from flare.services.search_service import SearchService
 from python_utils.loggers import get_logger
 from python_utils.sqlalchemy_postgresql_engine_wrapper import SqlAlchemyPostgresqlEngineWrapper
@@ -14,11 +17,13 @@ logger = get_logger(__name__)
 
 
 # Configs
+auth_config = AuthConfig()
 postgresql_config = PostgresqlConfig()
 youtube_config = YoutubeConfig()
 
 
 # Services
+auth_service = AuthService(auth_config.secret_key, auth_config.public_key)
 search_service = SearchService(youtube_config.api_key)
 
 
@@ -34,10 +39,16 @@ sqlalchemy_postgresql_engine_wrapper = SqlAlchemyPostgresqlEngineWrapper(
 sqlalchemy_session = sqlalchemy_postgresql_engine_wrapper.create_session()
 
 
+# Repositories
+user_repository = UserRepository(sqlalchemy_session, logger)
+
+
 class CommandContext:
     def __init__(self):
-        self.sqlalchemy_session = sqlalchemy_session
+        self.auth_service = auth_service
         self.search_service = search_service
+        self.sqlalchemy_session = sqlalchemy_session
+        self.user_repository = user_repository
 
     def commit(self):
         self.sqlalchemy_session.commit()
@@ -48,7 +59,7 @@ class CommandContext:
 
 
 bound_domain = Domain(CommandContext)
-fastapi_app = FastapiApp(bound_domain)
+fastapi_app = FastapiApp(bound_domain, auth_service)
 
 
 def run_server():
