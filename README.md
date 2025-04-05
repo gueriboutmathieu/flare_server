@@ -5,12 +5,12 @@
 | Name                                          |    Stmts |     Miss |   Cover |   Missing |
 |---------------------------------------------- | -------: | -------: | ------: | --------: |
 | flare/\_\_init\_\_.py                         |        0 |        0 |    100% |           |
-| flare/app.py                                  |       36 |       36 |      0% |      1-70 |
+| flare/app.py                                  |       39 |       39 |      0% |      1-74 |
 | flare/config/\_\_init\_\_.py                  |        0 |        0 |    100% |           |
 | flare/config/auth\_config.py                  |        5 |        5 |      0% |       1-7 |
 | flare/config/postgresql\_config.py            |        8 |        0 |    100% |           |
 | flare/config/youtube\_config.py               |        4 |        0 |    100% |           |
-| flare/domain/command\_context.py              |       29 |       15 |     48% |11, 15, 19, 22, 25, 33-45 |
+| flare/domain/command\_context.py              |       34 |       17 |     50% |12, 16, 20, 24, 27, 30, 39-52 |
 | flare/domain/commands/\_\_init\_\_.py         |        0 |        0 |    100% |           |
 | flare/domain/commands/search\_command.py      |        5 |        0 |    100% |           |
 | flare/domain/entities/\_\_init\_\_.py         |        0 |        0 |    100% |           |
@@ -26,16 +26,18 @@
 | flare/repositories/user\_repository.py        |       16 |        5 |     69% | 11, 26-29 |
 | flare/routes/\_\_init\_\_.py                  |        0 |        0 |    100% |           |
 | flare/routes/auth\_routes.py                  |       24 |       24 |      0% |      1-28 |
-| flare/routes/fastapi\_app.py                  |       16 |       16 |      0% |      1-22 |
+| flare/routes/fastapi\_app.py                  |       17 |       17 |      0% |      1-23 |
 | flare/routes/search\_routes.py                |       26 |       26 |      0% |      1-34 |
 | flare/routes/user\_routes.py                  |        9 |        9 |      0% |      1-12 |
 | flare/routes/utils/\_\_init\_\_.py            |        0 |        0 |    100% |           |
 | flare/routes/utils/validate\_user\_wrapper.py |        9 |        9 |      0% |      1-12 |
+| flare/routes/video\_routes.py                 |       20 |       20 |      0% |      1-29 |
 | flare/services/\_\_init\_\_.py                |        0 |        0 |    100% |           |
 | flare/services/auth\_service.py               |       18 |        9 |     50% |     14-27 |
 | flare/services/search\_service.py             |      137 |       61 |     55% |98-187, 190-199, 202-210, 213-222 |
+| flare/services/streaming\_service.py          |       26 |       10 |     62% |27-36, 39-51 |
 | flare/utils/parse\_iso\_duration.py           |       12 |        0 |    100% |           |
-|                                     **TOTAL** |  **429** |  **217** | **49%** |           |
+|                                     **TOTAL** |  **484** |  **253** | **48%** |           |
 
 
 ## Setup coverage badge
