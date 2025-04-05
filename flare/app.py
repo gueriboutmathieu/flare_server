@@ -8,8 +8,10 @@ from flare.repositories.user_repository import UserRepository
 from flare.routes.fastapi_app import FastapiApp
 from flare.services.auth_service import AuthService
 from flare.services.search_service import SearchService
+from flare.services.streaming_service import StreamingService
 from python_utils.loggers import get_logger
 from python_utils.sqlalchemy_postgresql_engine_wrapper import SqlAlchemyPostgresqlEngineWrapper
+
 
 
 # Logger
@@ -25,6 +27,7 @@ youtube_config = YoutubeConfig()
 # Services
 auth_service = AuthService(auth_config.secret_key, auth_config.public_key)
 search_service = SearchService(youtube_config.api_key)
+streaming_service = StreamingService()
 
 
 # SQLAlchemyEngineWrapper
@@ -47,6 +50,7 @@ class CommandContext:
     def __init__(self):
         self.auth_service = auth_service
         self.search_service = search_service
+        self.streaming_service = streaming_service
         self.sqlalchemy_session = sqlalchemy_session
         self.user_repository = user_repository
 

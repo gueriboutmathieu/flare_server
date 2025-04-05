@@ -10,12 +10,14 @@ from flare.domain.entities.video_entity import Video
 from flare.repositories.user_repository import UserRepository
 from flare.services.auth_service import AuthService
 from flare.services.search_service import SearchService
+from flare.services.streaming_service import StreamingService
 
 
 class MockedCommandContext(CommandContext):
     def __init__(self) -> None:
         self._auth_service = AuthService("", "")
         self._search_service = SearchService("")
+        self._streaming_service = StreamingService()
         self._user_repository = UserRepository(Session(), Logger(__name__))
 
     @property
@@ -25,6 +27,10 @@ class MockedCommandContext(CommandContext):
     @property
     def search_service(self):
         return self._search_service
+
+    @property
+    def streaming_service(self):
+        return self._streaming_service
 
     @property
     def user_repository(self):
