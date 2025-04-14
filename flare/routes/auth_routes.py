@@ -7,7 +7,7 @@ from python_utils.auth import AuthException
 
 
 def load_routes(fastapi_app: FastAPI, domain: Domain):
-    @fastapi_app.post("/signup")
+    @fastapi_app.post("/auth/signup")
     async def signup(public_key: str, username: str, password: str) -> UserTokens:  # pyright: ignore[reportUnusedFunction]
         try:
             user_tokens = domain.signup(public_key, username, password)
@@ -17,7 +17,7 @@ def load_routes(fastapi_app: FastAPI, domain: Domain):
             raise HTTPException(status_code=403, detail=str(e)) from e
         return user_tokens
 
-    @fastapi_app.post("/signin")
+    @fastapi_app.post("/auth/signin")
     async def signin(username: str, password: str) -> UserTokens:  # pyright: ignore[reportUnusedFunction]
         try:
             user_tokens = domain.signin(username, password)
@@ -26,3 +26,11 @@ def load_routes(fastapi_app: FastAPI, domain: Domain):
         except AuthException as e:
             raise HTTPException(status_code=401, detail=str(e)) from e
         return user_tokens
+
+    @fastapi_app.post("/auth/refresh-access-token")
+    async def refresh_access_token(refresh_token: str) -> str:  # pyright: ignore[reportUnusedFunction]
+        try:
+            access_token = domain.refresh_access_token(refresh_token)
+        except AuthException as e:
+            raise HTTPException(status_code=401, detail=str(e)) from e
+        return access_token

@@ -2,15 +2,17 @@ from datetime import datetime
 from pydantic import BaseModel
 from typing import Optional
 
+from flare.routes.dtos.video_formats_dto import AudioFormatDto, VideoFormatDto
+
 
 class VideoDto(BaseModel):
     id: str
     title: str
-    url: str
+    channel_id: str
     channel_title: str
     thumbnail_url: str
     duration: int
     view_count: int
-    published_at: datetime
-    playlist_id: Optional[str] = None
-    channel_id: Optional[str] = None
+    upload_date: Optional[datetime]
+    audio_formats: list[AudioFormatDto]
+    video_formats: list[VideoFormatDto]

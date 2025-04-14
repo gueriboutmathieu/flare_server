@@ -1,25 +1,20 @@
+from dataclasses import dataclass
 from datetime import datetime
-from sqlalchemy import ForeignKey
-from sqlalchemy.orm import Mapped, mapped_column, relationship
 from typing import Optional
 
-from python_utils.entity import Entity
+from flare.domain.entities.audio_format import AudioFormat
+from flare.domain.entities.video_format import VideoFormat
 
 
-class Video(Entity):
-    __tablename__ = "videos"
-
-    id: Mapped[str] = mapped_column(init=True, primary_key=True)
-    title: Mapped[str] = mapped_column(init=True)
-    url: Mapped[str] = mapped_column(init=True)
-    channel_title: Mapped[str] = mapped_column(init=True)
-    thumbnail_url: Mapped[str] = mapped_column(init=True)
-    duration: Mapped[int] = mapped_column(init=True)
-    view_count: Mapped[int] = mapped_column(init=True)
-    published_at: Mapped[datetime] = mapped_column(init=True)
-
-    playlist_id: Mapped[Optional[str]] = mapped_column(ForeignKey("playlists.id"), init=True)
-    playlist: Mapped[Optional["Playlist"]] = relationship(back_populates="videos", init=False)  # pyright: ignore  # noqa
-
-    channel_id: Mapped[Optional[str]] = mapped_column(ForeignKey("channels.id"), init=True)
-    channel: Mapped[Optional["Channel"]] = relationship(back_populates="videos", init=False)  # pyright: ignore  # noqa
+@dataclass
+class Video:
+    id: str
+    title: str
+    thumbnail_url: str
+    channel_id: str
+    channel_title: str
+    duration: int
+    view_count: int
+    upload_date: Optional[datetime]
+    audio_formats: list[AudioFormat]
+    video_formats: list[VideoFormat]

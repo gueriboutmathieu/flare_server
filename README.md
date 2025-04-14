@@ -37,7 +37,6 @@ SQL_PORT=55432
 SQL_DATABASE=flare
 AUTH_SECRET_KEY=<your secret key>
 AUTH_PUBLIC_KEY=<your public key>
-YOUTUBE_API_KEY=<your youtube api key>
 ```
 
 ## Run locally

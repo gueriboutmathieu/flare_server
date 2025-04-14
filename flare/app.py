@@ -2,7 +2,6 @@ import uvicorn
 
 from flare.config.auth_config import AuthConfig
 from flare.config.postgresql_config import PostgresqlConfig
-from flare.config.youtube_config import YoutubeConfig
 from flare.domain.domain import Domain
 from flare.repositories.user_repository import UserRepository
 from flare.routes.fastapi_app import FastapiApp
@@ -21,12 +20,11 @@ logger = get_logger(__name__)
 # Configs
 auth_config = AuthConfig()
 postgresql_config = PostgresqlConfig()
-youtube_config = YoutubeConfig()
 
 
 # Services
 auth_service = AuthService(auth_config.secret_key, auth_config.public_key)
-search_service = SearchService(youtube_config.api_key)
+search_service = SearchService()
 streaming_service = StreamingService()
 
 
